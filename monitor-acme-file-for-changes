@@ -4,6 +4,8 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+./dumpcerts.sh "${1}" "${2}"
+
 while true :; do
   inotifywait --event modify "${1}"
   sleep 2
