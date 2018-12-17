@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+while true :; do
+  inotifywait --event modify "${1}"
+  sleep 2
+  ./dumpcerts.sh "${1}" "${2}"
+done
