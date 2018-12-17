@@ -12,7 +12,7 @@ docker build -t dumpcerts .
 * Container is looking for the file "/etc/traefik/acme.json". Mount or bind it as readonly where it exist. Output should be a directory, in this example I use readwrite volume "tls".
 ```sh
 docker volume create tls
-docker run -it -d \
+docker run --name dumpcerts -it -d \
   -v traefik:/etc/traefik:ro \
   -v tls:/tls:rw \
   dumpcerts
