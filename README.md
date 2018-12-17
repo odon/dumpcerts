@@ -9,11 +9,10 @@ This container will monitor Traefik acme.json file for changes and run dumpcerts
 docker build -t dumpcerts .
 ```
 
-* Container is looking for "/etc/traefik/acme.json" file. Mount or bind a readonly volume where it exist. Output should be a directory, in this example readwrite volume "tls".
+* Container is looking for the file "/etc/traefik/acme.json". Mount or bind it as readonly where it exist. Output should be a directory, in this example I use readwrite volume "tls".
 ```sh
 docker volume create tls
 docker run -it -d \
-  #-v path_to/acme.json:/etc/traefik/acme.json:ro \
   -v traefik:/etc/traefik:ro \
   -v tls:/tls:rw \
   dumpcerts
