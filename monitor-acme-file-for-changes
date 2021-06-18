@@ -6,6 +6,7 @@ set -o nounset
 
 while true :; do
   ./dumpcerts.sh "${1}" "${2}"
+  echo "Certificates updated"
   inotifywait --event modify "${1}"
   sleep 2
 done

@@ -1,9 +1,11 @@
 FROM alpine:latest
 
 RUN apk add --no-cache bash util-linux openssl jq inotify-tools
-RUN wget https://raw.githubusercontent.com/containous/traefik/master/contrib/scripts/dumpcerts.sh && \
-    chmod +x dumpcerts.sh
+COPY ["dumpcerts.sh", "./dumpcerts.sh"]
+RUN chmod +x ./dumpcerts.sh
 COPY ["monitor-acme-file-for-changes", "./monitor-acme-file-for-changes"]
 RUN chmod +x ./monitor-acme-file-for-changes
 
-CMD ["./monitor-acme-file-for-changes", "/etc/traefik/acme.json", "/tls"]
+VOLUME ["/acme", "/certs"]
+
+CMD ["./monitor-acme-file-for-changes", "/acme/acme.json", "/certs"]
